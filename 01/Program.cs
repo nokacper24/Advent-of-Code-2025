@@ -9,18 +9,11 @@ await foreach (var line in File.ReadLinesAsync("input"))
     var positionbefore = position;
     var direction = line.FirstOrDefault();
     var amount = int.Parse(line.Substring(1));
-    if (direction == 'R')
+    if (direction == 'L')
     {
-        position = (position + amount) % 100;
+        amount *= -1;
     }
-    else if (direction == 'L')
-    {
-        position = (position - amount) % 100;
-    }
-    else
-    {
-        throw new Exception("invalid direction");
-    }
+    position = (position + amount) % 100;
     if (position == 0)
     {
         atZeroCount++;
