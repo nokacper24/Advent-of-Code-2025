@@ -8,7 +8,7 @@ await foreach (var line in File.ReadLinesAsync("input"))
     diagram = [.. diagram, line.ToCharArray()];
 }
 
-solvePart1();
+solvePart2();
 
 void solvePart1()
 {
@@ -28,6 +28,38 @@ void solvePart1()
             }
         }
 
+    }
+    Console.WriteLine($"Total: {total}");
+}
+
+void solvePart2()
+{
+    int total = 0;
+
+    while (true)
+    {
+        int removedThisIteration = 0;
+        for (int i = 0; i < diagram.Length; i++)
+        {
+            for (int j = 0; j < diagram[i].Length; j++)
+            {
+                if (diagram[i][j] == '@')
+                {
+                    var neighbours = countNeighbours(diagram, i, j);
+                    Console.WriteLine($"{i} {j} -> {neighbours}");
+                    if (neighbours < 4)
+                    {
+                        diagram[i][j] = 'x';
+                        removedThisIteration++;
+                        total++;
+                    }
+                }
+            }
+        }
+        if (removedThisIteration == 0)
+        {
+            break;
+        }
     }
     Console.WriteLine($"Total: {total}");
 }
